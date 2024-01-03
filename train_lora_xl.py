@@ -128,13 +128,14 @@ def train(
                 settings.unconditional,
             ]:
                 if cache[prompt] == None:
-                    cache[prompt] = PromptEmbedsXL(
-                        train_util.encode_prompts_xl(
+                    text_embeds, pooled_embeds = train_util.encode_prompts_xl(
                             tokenizers,
                             text_encoders,
                             [prompt],
                             num_images_per_prompt=NUM_IMAGES_PER_PROMPT,
                         )
+                    cache[prompt] = PromptEmbedsXL(
+                        text_embeds, pooled_embeds
                     )
 
             prompt_pairs.append(
